@@ -1,5 +1,10 @@
 package com.epam.izh.rd.online.service;
 
+import javafx.scene.chart.ValueAxis;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class SimpleMathService implements MathService {
 
     /**
@@ -13,7 +18,14 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int compare(int value1, int value2) {
-        return -2;
+
+        if (value1 == value2) {
+            return 0;
+        } else
+            if (value1 < value2) {
+                return -1;
+            } else
+                return 1;
     }
 
     /**
@@ -22,7 +34,10 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int maxFrom(int value1, int value2) {
-        return -1;
+        if (value1 > value2) {
+            return value1;
+        } else
+            return value2;
     }
 
     /**
@@ -31,7 +46,13 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int maxFrom(int[] values) {
-        return -1;
+        int max = 0;
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] > values[max]) {
+                max = i;
+            }
+        }
+return values[max];
     }
 
     /**
@@ -40,7 +61,11 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int sum(int[] values) {
-        return -1;
+        int summa = 0;
+        for (int i = 0; i < values.length; i++) {
+            summa = values[i] + summa;
+        }
+        return summa;
     }
 
     /**
@@ -49,8 +74,22 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] getEvenDigits(int[] values) {
-        return new int[]{};
-    }
+        int count = 0;
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] % 2 == 0){
+                count++;
+            }
+        }
+        int[] result = new int[count];
+        int countResult = 0;
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] % 2 == 0){
+                result[countResult] = values[i];
+                countResult++;
+            }
+        }
+        return result;
+        }
 
     /**
      * Метод считает факториал из заданного числа.
@@ -59,8 +98,13 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public long calcFactorial(int initialVal) {
-        return -1L;
+        long result = 1;
+        for (long i = 1; i <= initialVal; i++) {
+            result = result * i;
+        }
+        return result;
     }
+
 
     /**
      * Метод возвращает число, которе находится на заданной позиции (счет начинается с нуля) в ряду фибоначчи.
@@ -74,7 +118,19 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public long calcFibonacci(int number) {
-        return -1L;
+        if (number <= 1) {
+            return number;
+        } else {
+            long[] fib = new long[number + 1];
+
+            fib[0] = 0;
+            fib[1] = 1;
+
+            for (int i = 2; i <= number; i++) {
+                fib[i] = fib[i - 1] + fib[i - 2];
+            }
+            return fib[number];
+        }
     }
 
     /**
@@ -83,7 +139,8 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] sort(int[] values) {
-        return new int[]{};
+        Arrays.sort(sort(values));
+        return sort(values);
     }
 
     /**
