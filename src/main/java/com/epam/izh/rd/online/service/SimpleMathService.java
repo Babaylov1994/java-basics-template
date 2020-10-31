@@ -139,8 +139,16 @@ return values[max];
      */
     @Override
     public int[] sort(int[] values) {
-        Arrays.sort(sort(values));
-        return sort(values);
+        for (int i = 1; i < values.length ; i++) {
+            int current = values[i];
+            int j = i - 1;
+            while (j >= 0 && current < values[j]) {
+                values[j + 1] = values[j];
+                j--;
+            }
+            values[j + 1] = current;
+        }
+        return values;
     }
 
     /**
@@ -151,8 +159,15 @@ return values[max];
      */
     @Override
     public boolean isPrimary(int number) {
-        return false;
+
+        for (int i = 2; i < number; i++) {
+            if(number % i == 0){
+                return false;
+            }
+        }
+        return true;
     }
+
 
     /**
      * Метод возвращает массив, в котором элементы расположены в обратном порядке.
@@ -161,6 +176,13 @@ return values[max];
      */
     @Override
     public int[] reverseArray(int[] values) {
-        return new int[]{};
+    int[] result = new int[values.length];
+    int j = 0;
+        for (int i = values.length - 1; i >= 0; i--) {
+            result[j] = values[i];
+            j++;
+
+        }
+        return result;
     }
 }
